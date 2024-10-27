@@ -30,7 +30,3 @@ To get started with the game:
 ## Acknowledgments
 - **Tutorial**: Developed with guidance from the YouTube tutorial by [Brackeys](https://youtu.be/LOhfqjmasi0?si=qS_Uf1q1v_KuJqMg).
 - **Godot Engine**: [Godot 4.3](https://godotengine.org/) for providing an open-source, powerful game development platform.
-
----
-
-This README should be a helpful starting point for others who explore your project. Let me know if you'd like to add more details!
