@@ -1,0 +1,169 @@
+[gd_scene load_steps=12 format=3 uid="uid://be388j557yycb"]
+
+[ext_resource type="Script" path="res://Scripts/fruit_green.gd" id="1_jge6c"]
+[ext_resource type="Texture2D" uid="uid://dl87dcsvemywh" path="res://Assets/sprites/fruit.png" id="1_mj7jy"]
+[ext_resource type="AudioStream" uid="uid://c0so5gc7ocgdt" path="res://Assets/sounds/power_up.wav" id="2_gvk6p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sbi7"]
+atlas = ExtResource("1_mj7jy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqlru"]
+atlas = ExtResource("1_mj7jy")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qks56"]
+atlas = ExtResource("1_mj7jy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tl76o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sbi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqlru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qks56")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d84v7"]
+radius = 3.0
+height = 14.0
+
+[sub_resource type="Animation" id="Animation_gl3j2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PowerUpSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2icre"]
+resource_name = "SpeedPower"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PowerUpSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p2p1d"]
+_data = {
+"RESET": SubResource("Animation_gl3j2"),
+"SpeedPower": SubResource("Animation_2icre")
+}
+
+[node name="FruitGreen" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_jge6c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 4
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_tl76o")
+autoplay = "default"
+frame_progress = 0.37668
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 4
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_d84v7")
+
+[node name="PowerUpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_gvk6p")
+max_distance = 7600.0
+bus = &"soundEffects"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p2p1d")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
