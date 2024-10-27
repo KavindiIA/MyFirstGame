@@ -1,7 +1,3 @@
-Here's a README file for your Godot 4.3 game project:
-
----
-
 # Knight Adventure Game
 
 **Knight Adventure Game** is a 2D platformer developed in Godot 4.3. In this game, you control a knight character who collects coins and gains power-ups by picking up fruits. This is the developer's first game, built with a focus on learning and implementing core game mechanics.
