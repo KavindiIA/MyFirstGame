@@ -25,7 +25,7 @@ To get started with the game:
 3. Open the project in Godot and press "Play" to start the game.
 
 ## Assets
-- **Knight Character**: [Brackeys Platformer Bundle](https://brackeysgames.itch.io/brackeys-platformer-bundle)
+- **Knight Character and all the other assets in this game**: [Brackeys Platformer Bundle](https://brackeysgames.itch.io/brackeys-platformer-bundle)
 
 ## Acknowledgments
 - **Tutorial**: Developed with guidance from the YouTube tutorial by [Brackeys](https://youtu.be/LOhfqjmasi0?si=qS_Uf1q1v_KuJqMg).
